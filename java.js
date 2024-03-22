@@ -1,50 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heart Health Check</title>
-    <link rel="stylesheet" href="cssfile.css">
-</head>
-<body>
-    <header>
-        <h1>Heart health checker </h1>
-    </header>
+function checkHealth() {
+    var age = parseInt(document.getElementById('age').value);
+    var gender = document.getElementById('gender').value;
+    var cholesterol = parseInt(document.getElementById('cholesterol').value);
+    var bloodPressure = parseInt(document.getElementById('bloodPressure').value);
+    var smoker = document.querySelector('input[name="smoker"]:checked').value;
 
-    <main>
-        <form id="healthForm">
-            <label for="age">Age:</label>
-            <input type="number" id="age" name="age" required><br>
-            
-            <label for="gender">Gender:</label>
-            <select id="gender" name="gender" required>
-                <option value="">Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-            </select><br>
-            
-            <label for="cholesterol">Total Cholesterol Level (mg/dL):</label>
-            <input type="number" id="cholesterol" name="cholesterol" required><br>
-            
-            <label for="bloodPressure">Systolic Blood Pressure (mmHg):</label>
-            <input type="number" id="bloodPressure" name="bloodPressure" required><br>
-            
-            <label for="smoker">Do you smoke?</label>
-            <input type="radio" id="smokerYes" name="smoker" value="yes" required>
-            <label for="smokerYes">Yes</label>
-            <input type="radio" id="smokerNo" name="smoker" value="no">
-            <label for="smokerNo">No</label><br>
-            
-            <button type="button" onclick="checkHealth()">Check Health</button>
-        </form>
+    // Calculate risk based on health data
+    var risk = 0;
+    if (age >= 45 && age <= 64) {
+        risk += 1;
+    }
+    if (gender === "male") {
+        risk += 1;
+    }
+    if (cholesterol >= 200) {
+        risk += 1;
+    }
+    if (bloodPressure >= 130) {
+        risk += 1;
+    }
+    if (smoker === "yes") {
+        risk += 1;
+    }
 
-        <div id="result"></div>
-    </main>
-
-    <footer>
-        <p>&copy; 2024 Heart Health Check. All rights reserved.</p>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
-</html>
+    // Display result
+    var resultDiv = document.getElementById('result');
+    if (risk >= 3) {
+        resultDiv.innerHTML = "<p>You have a high risk of heart attack. Please consult a doctor immediately.</p>";
+    } else {
+        resultDiv.innerHTML = "<p>You have a low to moderate risk of heart attack. Keep monitoring your health regularly.</p>";
+    }
+}
